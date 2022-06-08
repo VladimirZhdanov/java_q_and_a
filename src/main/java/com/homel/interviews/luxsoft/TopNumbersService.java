@@ -13,39 +13,41 @@ Class interface:
 */
 class TopNumbersService {
     private final int SIZE;
-    private final TreeSet<Integer> list;
-    private final Object l = new Object();
+    private final TreeSet<Integer> treeSet;
+    private final Object lock = new Object();
 
     TopNumbersService(int size) {
         SIZE = size;
-        this.list = new TreeSet<>();
+        this.treeSet = new TreeSet<>();
     }
 
     public void push(int val) {
-        synchronized (l) {
-            if (list.size() < SIZE) {
-                list.add(val);
-            } else if (!list.contains(val)) {
-                if (val > list.first()) {
-                    list.remove(list.first());
-                    list.add(val);
+        synchronized (lock) {
+            if (treeSet.size() < SIZE) {
+                treeSet.add(val);
+            } else if (!treeSet.contains(val)) {
+                if (val > treeSet.first()) {
+                    treeSet.remove(treeSet.first());
+                    treeSet.add(val);
                 }
             }
-            if (list.size() == SIZE) {
-                l.notify();
+            if (treeSet.size() == SIZE) {
+                System.out.println("notify");
+                lock.notify();
             }
         }
     }
 
     public List<Integer> top() throws InterruptedException {
-        synchronized (l) {
-            l.wait();
-            return new ArrayList<>(list);
+        synchronized (lock) {
+            System.out.println("wait");
+            lock.wait();
+            return new ArrayList<>(treeSet);
         }
     }
 
-    public static void main(String[] args) {
-        TopNumbersService topNumbersService = new TopNumbersService(2);
+    public static void main(String[] args) throws InterruptedException {
+        TopNumbersService topNumbersService = new TopNumbersService(3);
 
         Thread t1 = new Thread(() -> {
             topNumbersService.push(1);
@@ -61,7 +63,8 @@ class TopNumbersService {
             }
         });
 
-        t1.start();
         t2.start();
+        Thread.sleep(100);
+        t1.start();
     }
 }

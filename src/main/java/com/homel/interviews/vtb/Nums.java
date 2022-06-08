@@ -12,9 +12,5 @@ public class Nums {
         System.out.println(1./2);
         System.out.println(1/2.);
         System.out.println(1./2.);
-
-        short i = 1;
-        short j = 1;
-        System.out.println(i/j);
     }
 }

@@ -1,4 +1,4 @@
-package com.homel.interviews.tsystems;
+package com.homel.interviews.tsystems.problem;
 
 // Outline:
 // [A] Obvious bugs

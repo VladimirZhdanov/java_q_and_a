@@ -1,0 +1,94 @@
+package com.homel.interviews.tsystems.solution;
+
+// Outline:
+// [A] Obvious bugs
+// [B] Potential problems with that particular implementation
+// [C] Changes required to make this code production-ready
+
+// Given the following implementation of event dispatcher…
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class EventDispatcher {
+
+    private EventDispatcher() {
+    }
+
+    private static volatile EventDispatcher instance;
+
+    private final List<EventListener> listeners = new CopyOnWriteArrayList<>();
+
+    public static EventDispatcher getInstance() {
+        EventDispatcher localVal = instance;
+            if (localVal == null) {
+                synchronized (EventDispatcher.class) {
+                    localVal = instance;
+                    if (localVal == null) {
+                        instance = localVal = new EventDispatcher();
+                    }
+            }
+        }
+        return localVal;
+    }
+
+    public void registerListener(EventListener listener) {
+        listeners.add(listener);
+    }
+
+    public void fireEvent(Event event) {
+        for (EventListener listener : listeners)
+            listener.onEvent(event);
+    }
+}
+
+interface EventListener {
+    void onEvent(Event event);
+}
+
+class Event {
+
+    private Object payload;
+
+    public Event(Object payload) {
+        this.payload = payload;
+    }
+
+    public Object getPayload() {
+        return payload;
+    }
+
+}
+// … and the following sample invocation code:
+
+class PubSubTest {
+
+    static class Subscriber extends Thread implements EventListener {
+
+        public void onEvent(Event event) {
+            System.out.println("Received event: " + event);
+        }
+
+        public void run() {
+            EventDispatcher dispatcher = EventDispatcher.getInstance();
+            dispatcher.registerListener(this);
+        }
+
+    }
+
+    static class Publisher extends Thread {
+
+        public void run() {
+            EventDispatcher dispatcher = EventDispatcher.getInstance();
+            for (int i = 0; i < 100; i++)
+                dispatcher.fireEvent(new Event(new Object()));
+        }
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Publisher().start();
+        new Subscriber().start();
+    }
+}

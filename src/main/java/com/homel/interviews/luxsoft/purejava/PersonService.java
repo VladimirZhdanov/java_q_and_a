@@ -10,7 +10,7 @@ public class PersonService {
 
     public PersonService() {
         Random random = new Random(100);
-        for (int i = 0; i < 100_000; i++) {
+        for (int i = 0; i < 1_000_000; i++) {
             boolean sex = i % 2 == 0;
             Person person = new Person(i + "", i + "", i + "", random.nextInt(), sex);
             set.add(person);
@@ -26,7 +26,7 @@ public class PersonService {
     }
 
     public List<Person> searchList(int age, boolean sex) {
-        return set.stream()
+        return list.stream()
                 .filter(it -> it.age <= age)
                 .filter(it -> it.sex = sex)
                 .collect(Collectors.toList());

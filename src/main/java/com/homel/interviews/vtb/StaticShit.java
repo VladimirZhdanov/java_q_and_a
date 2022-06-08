@@ -5,7 +5,7 @@ public class StaticShit {
         System.out.println("Hi");
     }
 
-    private StaticShit x;
+    private static StaticShit x;
 
     public static void main(String s[]) {
         //x.perform(); // корректно ли это выражение?
