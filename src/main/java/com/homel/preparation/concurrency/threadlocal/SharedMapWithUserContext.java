@@ -1,7 +1,4 @@
-package com.homel.preparation.concurrency.threadlocal.without;
-
-import com.homel.preparation.concurrency.threadlocal.Context;
-import com.homel.preparation.concurrency.threadlocal.UserRepository;
+package com.homel.preparation.concurrency.threadlocal;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

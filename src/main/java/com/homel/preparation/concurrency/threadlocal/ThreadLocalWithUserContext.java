@@ -1,8 +1,5 @@
-package com.homel.preparation.concurrency.threadlocal.with;
+package com.homel.preparation.concurrency.threadlocal;
 
-
-import com.homel.preparation.concurrency.threadlocal.Context;
-import com.homel.preparation.concurrency.threadlocal.UserRepository;
 
 public class ThreadLocalWithUserContext implements Runnable {
 
