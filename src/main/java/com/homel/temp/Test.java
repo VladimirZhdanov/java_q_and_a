@@ -1,7 +1,5 @@
 package com.homel.temp;
 
-import com.homel.preparation.colection.set.A;
-
 import java.util.ArrayList;
 import java.util.List;
 
