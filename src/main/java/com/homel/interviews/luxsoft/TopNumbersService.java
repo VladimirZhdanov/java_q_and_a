@@ -39,7 +39,7 @@ class TopNumbersService {
     }
 
     public List<Integer> top() throws InterruptedException {
-        synchronized (lock) {
+            synchronized (lock) {
             System.out.println("wait");
             lock.wait();
             return new ArrayList<>(treeSet);
