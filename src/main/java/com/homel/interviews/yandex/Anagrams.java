@@ -1,4 +1,4 @@
-package com.homel.interviews.io;
+package com.homel.interviews.yandex;
 
 import java.util.HashSet;
 import java.util.Set;
