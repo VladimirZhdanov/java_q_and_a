@@ -12,6 +12,10 @@ public class Abbreviation {
 
 
     private static String makeAbbreviation(String s) {
+        if (s == null || s.isEmpty()) {
+            return "";
+        }
+
         String[] strings = s.split(" ");
 
         StringBuilder sb = new StringBuilder();
@@ -24,6 +28,10 @@ public class Abbreviation {
     }
 
     private static String getRightString(String s) {
+        if (s == null || s.isEmpty()) {
+            return "";
+        }
+
         int beginIndex = 0;
         int endIndex = 0;
         int n = s.length();
