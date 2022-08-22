@@ -1,13 +1,29 @@
 package com.homel.preparation.string;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class Abbreviation {
 
-    public static void main(String[] args) {
-        String testString = "bla bla (публичное акционерное общество) bla bla";
+    private static Map<String, String> map = new HashMap<>();
+    static {
+        map.put("публичное акционерное общество", "ПАО");
+        map.put("непубличное акционерное общество", "НАО");
+        map.put("общество с ограниченной ответственностью", "ООО");
+    }
 
-        System.out.println(makeAbbreviation(getRightString(testString)));
+    public static void main(String[] args) {
+        String testString1 = "bla bla (публичное акционерное общество) bla bla";
+        String testString2 = "bla bla (Общество с ограниченной ответственностью) bla bla";
+        String testString3 = "bla bla (Закрытое акционерное общество) bla bla";
+        String testString4 = "bla bla (непубличное Акционерное общество) bla bla";
+
+
+        System.out.println(getRightString(testString1));
+        System.out.println(getRightString(testString2));
+        System.out.println(getRightString(testString3));
+        System.out.println(getRightString(testString4));
     }
 
 
@@ -48,6 +64,12 @@ public class Abbreviation {
             }
         }
 
-        return s.substring(beginIndex + 1, endIndex);
+        String fullName = s.substring(beginIndex + 1, endIndex);
+        String key = s.substring(beginIndex + 1, endIndex).toLowerCase(Locale.ROOT);
+
+        if (map.containsKey(key)) {
+            return s.replace(fullName, map.get(key));
+        }
+        return s.replace(fullName, makeAbbreviation(fullName));
     }
 }
