@@ -40,18 +40,18 @@ WHERE id IN (SELECT studentId FROM students_above_avg);
 
 CREATE TABLE schema_test.group
 (
-    id SERIAL PRIMARY KEY
+    id BIGSERIAL PRIMARY KEY
 );
 
 CREATE TABLE schema_test.student
 (
-    id      SERIAL PRIMARY KEY,
+    id      BIGSERIAL PRIMARY KEY,
     groupId INTEGER REFERENCES schema_test.group (id)
 );
 
 CREATE TABLE schema_test.mark
 (
-    id        SERIAL PRIMARY KEY,
+    id        BIGSERIAL PRIMARY KEY,
     studentId INTEGER REFERENCES schema_test.student (id),
     value     FLOAT
 );
