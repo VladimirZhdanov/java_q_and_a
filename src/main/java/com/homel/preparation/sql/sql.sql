@@ -92,13 +92,20 @@ ALTER TABLE person_data DROP COLUMN new_column;
 
 -- 4.
 -- Index for FK
-explain analyse DELETE FROM person_data WHERE country_id = 5;
-
-explain analyse SELECT * FROM person_data
-                WHERE country_id = 7;
 
 CREATE INDEX person_data_fk_country
     ON person_data(country_id);
 
+CREATE INDEX person_data_fk_country ON public.person_data USING btree (country_id);
+CREATE INDEX person_data_fk_country ON public.person_data USING hash (country_id);
+
 DROP INDEX person_data_fk_country;
 
+explain analyse SELECT * FROM person_data
+                WHERE country_id = 7;
+
+-- Если используем btree, то просто вычитываем первые 100, а если hash, то будет вычиввать все,
+-- так как hash не поддерживает сортировку
+explain analyse Select * FROM person_data
+ORDER BY country_id
+LIMIT 100;
