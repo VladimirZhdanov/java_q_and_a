@@ -1,4 +1,4 @@
-package com.homel.preparation.concurrency.cp;
+package com.homel.preparation.concurrency.blockingqueue.java;
 
 public class Message {
     private String msg;

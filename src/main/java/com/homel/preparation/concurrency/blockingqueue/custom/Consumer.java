@@ -1,12 +1,14 @@
-package com.homel.preparation.concurrency.cp;
+package com.homel.preparation.concurrency.blockingqueue.custom;
+
+import com.homel.preparation.concurrency.blockingqueue.java.Message;
 
 import java.util.concurrent.BlockingQueue;
 
 public class Consumer implements Runnable {
 
-    private final BlockingQueue<Message> queue;
+    private final CustomBlockingQueue<Message> queue;
 
-    public Consumer(BlockingQueue<Message> q) {
+    public Consumer(CustomBlockingQueue<Message> q) {
         this.queue = q;
     }
 

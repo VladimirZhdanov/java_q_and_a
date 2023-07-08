@@ -1,12 +1,14 @@
-package com.homel.preparation.concurrency.cp;
+package com.homel.preparation.concurrency.blockingqueue.custom;
+
+import com.homel.preparation.concurrency.blockingqueue.java.Message;
 
 import java.util.concurrent.BlockingQueue;
 
 public class Producer implements Runnable {
 
-    private final BlockingQueue<Message> queue;
+    private final CustomBlockingQueue<Message> queue;
 
-    public Producer(BlockingQueue<Message> q) {
+    public Producer(CustomBlockingQueue<Message> q) {
         this.queue = q;
     }
 
@@ -25,11 +27,7 @@ public class Producer implements Runnable {
         }
         //adding exit message
         Message msg = new Message("exit");
-        try {
-            queue.put(msg);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        queue.put(msg);
     }
 
 }

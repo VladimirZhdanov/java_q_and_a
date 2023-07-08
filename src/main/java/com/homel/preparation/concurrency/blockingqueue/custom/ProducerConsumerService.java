@@ -1,4 +1,6 @@
-package com.homel.preparation.concurrency.cp;
+package com.homel.preparation.concurrency.blockingqueue.custom;
+
+import com.homel.preparation.concurrency.blockingqueue.java.Message;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -7,7 +9,7 @@ public class ProducerConsumerService {
 
     public static void main(String[] args) {
         //Creating BlockingQueue of size 10
-        BlockingQueue<Message> queue = new ArrayBlockingQueue<>(10);
+        CustomBlockingQueue<Message> queue = new CustomBlockingQueue<>(10);
         Producer producer = new Producer(queue);
         Consumer consumer = new Consumer(queue);
         //starting producer to produce messages in queue
