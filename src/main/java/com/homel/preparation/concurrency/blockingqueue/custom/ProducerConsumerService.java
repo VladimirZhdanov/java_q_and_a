@@ -9,7 +9,7 @@ public class ProducerConsumerService {
 
     public static void main(String[] args) {
         //Creating BlockingQueue of size 10
-        CustomBlockingQueue<Message> queue = new CustomBlockingQueue<>(10);
+        CustomBlockingQueue<Message> queue = new CustomBlockingQueue<>();
         Producer producer = new Producer(queue);
         Consumer consumer = new Consumer(queue);
         //starting producer to produce messages in queue

@@ -12,7 +12,7 @@ public class CustomBlockingQueue<T> {
 
     private final Object lock = new Object();
 
-    public CustomBlockingQueue(int initialCapacity) {
+    public CustomBlockingQueue() {
         this.queue = new LinkedList<>();
     }
 
@@ -25,7 +25,7 @@ public class CustomBlockingQueue<T> {
 
     public T take() throws InterruptedException {
         synchronized (lock) {
-            if (queue.isEmpty()) {
+            while (queue.isEmpty()) {
                 lock.wait();
             }
             return queue.poll();
