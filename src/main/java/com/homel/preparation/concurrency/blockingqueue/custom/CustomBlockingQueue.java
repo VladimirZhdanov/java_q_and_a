@@ -25,7 +25,7 @@ public class CustomBlockingQueue<T> {
 
     public T take() throws InterruptedException {
         synchronized (lock) {
-            while (queue.isEmpty()) {
+            if (queue.isEmpty()) {
                 lock.wait();
             }
             return queue.poll();
