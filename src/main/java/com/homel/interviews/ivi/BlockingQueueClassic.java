@@ -2,11 +2,15 @@ package com.homel.interviews.ivi;
 
 public class BlockingQueueClassic implements BlockingQueue {
     // Array to store element for CustomBlockingQueue
-    final Object[] array = new Object[6];
+    final Object[] array;
     private int putIndex, takeIndex;
     private int count;
 
     private final Object lock = new Object();
+
+    public BlockingQueueClassic(int size) {
+        this.array = new Object[size];
+    }
 
     @Override
     public void put(Object x) throws InterruptedException {

@@ -3,7 +3,7 @@ package com.homel.interviews.ivi;
 public class Main {
 
     public static void main(String[] args) {
-        BlockingQueue customBlockingQueue = new BlockingQueueClassic();
+        BlockingQueue customBlockingQueue = new BlockingQueueClassic(6);
         // Creating producer and consumer threads
         Thread producer = new Thread(new Producer(customBlockingQueue));
         Thread consumer = new Thread(new Consumer(customBlockingQueue));
