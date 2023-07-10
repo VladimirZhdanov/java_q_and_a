@@ -2,7 +2,7 @@ package com.homel.preparation.concurrency;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Multithreading {
+public class Racing {
 
     static AtomicInteger count = new AtomicInteger(0);
     //int count = 0;

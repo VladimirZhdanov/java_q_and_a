@@ -1,7 +1,7 @@
 package com.homel.preparation.concurrency;
 
-public class Test {
-    public static void main(String[] args) {
+public class Join {
+    public static void main(String[] args) throws InterruptedException {
 
         Thread t1 = new Runner1();
         Thread t2= new Runner2();
@@ -9,6 +9,11 @@ public class Test {
         t1.start();
         t2.start();
 
+        // wait all thread
+        t1.join();
+        t2.join();
+
+        System.out.println("End");
     }
 }
 
@@ -19,7 +24,7 @@ class Runner1 extends Thread {
         for (int i = 0; i < 10; i++) {
             System.out.println("Runner 1: " + i);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(900);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
