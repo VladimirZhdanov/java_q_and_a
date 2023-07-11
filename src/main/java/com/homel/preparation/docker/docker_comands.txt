@@ -1,0 +1,8 @@
+1. Удалить FORCE докер образа контейнера на порту <port>
+
+docker rm -f $(docker ps | grep <port>)
+
+2. Сбилдить образ по Dockerfile и запушить на докерХаб
+
+docker build . -t <user_name>/<name_app>:<version>
+docker push <user_name>/<name_app>:<version>

@@ -1,0 +1,12 @@
+version: '3' #версия docker-compose
+services:
+  db-cats-api: # название образа IMAGE
+    image: postgres:12 # название на докер хабе : версия
+    restart: always # пытается рестануть контейнер, если упал
+    ports:
+      - 5444:5432 # реальный порт 5444 : порт в докере 5432
+    environment: # переменные
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: cats-api
+

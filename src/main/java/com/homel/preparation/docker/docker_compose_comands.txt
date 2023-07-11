@@ -1,0 +1,7 @@
+1. Запустить docker-compose.yml файл DEMON
+
+docker compose -f docker-compose.yml up -d
+
+2. Остановить контейнер
+
+docker compose -f docker-compose.yml down
