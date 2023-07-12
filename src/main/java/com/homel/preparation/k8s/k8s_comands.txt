@@ -1,0 +1,23 @@
+-1. Версия kubectl
+kubectl version
+
+0. Список services
+kubectl get service
+
+1. Список подов
+kubectl get pods
+
+2. Список подов динамический просмотр состояния в консоли
+kubectl get pods --watch
+
+3. Преминить конфиг
+kubectl apply -f <path>/deployment.yaml
+
+4. Посмотреть логи
+kubectl logs <pod_name>
+
+5. Удалить все поды
+kubectl delete pods --all
+
+6. Удалить все deployments
+kubectl delete deployments --all
