@@ -6,3 +6,7 @@ docker rm -f $(docker ps | grep <port>)
 
 docker build . -t <user_name>/<name_app>:<version>
 docker push <user_name>/<name_app>:<version>
+
+3. Зайти в докер контейнер консоль
+
+docker exec -it <name> bash
