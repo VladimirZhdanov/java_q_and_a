@@ -29,7 +29,31 @@ public class Main {
 
         //==================================================================
 
+        List<? super Animal> animalList = new ArrayList<>();
 
+        animalList.add(new Cat());
+        animalList.add(new LuxCat());
+        //animalList.add(new Dog()); //error
+
+        List<? extends Animal> animalList2 = new ArrayList<>();
+
+        //animalList2.add(new Cat()); //error
+        //animalList2.add(new LuxCat()); //error
+        //animalList2.add(new Dog()); //error
+        animalList2.add(null); //only null
+
+        List<?> animalList3 = new ArrayList<>();
+
+        //animalList3.add(new Cat()); //error
+        //animalList3.add(new LuxCat()); //error
+        //animalList3.add(new Dog()); //error
+        animalList3.add(null); //only null
+
+        List<Animal> animalList4 = new ArrayList<>();
+        animalList4.add(new Cat());
+        animalList4.add(new LuxCat());
+        animalList4.add(new Dog());
+        animalList4.add(null);
 
     }
 }

@@ -23,7 +23,7 @@ values (1, 'Ann'),
        (4, 'Diane'),
        (5, 'Emma');
 
--- генерация 1_000_000 записей в country
+-- генерация 300 записей в country
 CREATE TABLE country AS
 WITH tmp AS (SELECT generate_series AS id
              FROM generate_series(1, 300))
@@ -60,6 +60,9 @@ alter table person_data
         foreign key (country_id)
             REFERENCES country (id);
 
+-- Вставка на всякий
+explain analyse insert into person_data (id, country_id, name, sex, age, created_at)
+values (1000004, 300, 'test', 'man', -1, NOW());
 
 ------ Testing -------
 
@@ -80,9 +83,11 @@ where tablename = 'person_data' and attname = 'country_id';
 select *
 from pg_indexes
 where tablename like 'person_data';
--- Размер таблиц
+-- Размер таблиц в мб
 SELECT pg_size_pretty( pg_total_relation_size('person_data') );
 SELECT pg_size_pretty( pg_total_relation_size('person_data_pkey') );
+SELECT pg_size_pretty( pg_total_relation_size('person_data_fk_country') );
+SELECT pg_size_pretty( pg_total_relation_size('person_data_created_at') );
 
 -- 3.
 -- Added column with DEFAULT value
@@ -92,20 +97,33 @@ ALTER TABLE person_data DROP COLUMN new_column;
 
 -- 4.
 -- Index for FK
-
 CREATE INDEX person_data_fk_country
     ON person_data(country_id);
 
 CREATE INDEX person_data_fk_country ON public.person_data USING btree (country_id);
+CREATE UNIQUE INDEX person_data_fk_country ON public.person_data USING btree (country_id);
 CREATE INDEX person_data_fk_country ON public.person_data USING hash (country_id);
+CREATE UNIQUE INDEX person_data_fk_country ON public.person_data USING hash (country_id);
 
 DROP INDEX person_data_fk_country;
 
 explain analyse SELECT * FROM person_data
-                WHERE country_id = 7;
+                WHERE country_id = 300;
 
 -- Если используем btree, то просто вычитываем первые 100, а если hash, то будет вычиввать все,
--- так как hash не поддерживает сортировку
+-- так как hash не поддерживает сортировку (hash занимает больше в 5 раз места на диске)
 explain analyse Select * FROM person_data
 ORDER BY country_id
 LIMIT 100;
+
+
+-- выборка даты и индексы по дате (по дате лучше использовать партиции для больших таблиц)
+CREATE INDEX person_data_created_at ON public.person_data USING btree (created_at);
+DROP INDEX person_data_created_at;
+
+explain analyse Select * FROM person_data
+                ORDER BY created_at
+                LIMIT 100;
+
+explain analyse Select * FROM person_data
+                where created_at > '2021-01-02';
