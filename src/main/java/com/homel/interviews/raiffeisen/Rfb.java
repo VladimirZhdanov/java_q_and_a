@@ -13,8 +13,8 @@ public class Rfb {
 
         for (Person person : persons) {
             if (map.containsKey(person.name)) {
-                Integer maxAge = map.get(person.name);
-                if (maxAge < person.age) {
+                Integer currentAge = map.get(person.name);
+                if (currentAge < person.age) {
                     map.put(person.name, person.age);
                 }
             } else {
