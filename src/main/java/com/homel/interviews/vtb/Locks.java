@@ -1,7 +1,7 @@
 package com.homel.interviews.vtb;
 
 public class Locks implements Runnable {
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     public void lock() {
         synchronized (lock) {
@@ -20,7 +20,7 @@ public class Locks implements Runnable {
         }
     }
 
-    public static void main(String s[]) {
+    public static void main(String[] args) throws InterruptedException {
         new Thread(new Locks() {
             public void run() {
                 lock();
