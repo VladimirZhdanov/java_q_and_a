@@ -19,22 +19,13 @@ WHERE m.value > (SELECT avg(m.value) FROM mark m);
 
 -- 3. Найти всех студентов, у которых есть хотя бы одна оценка, выше средней в его группе
 
-WITH avg_marks AS (
-    SELECT groupId, AVG(value) AS avg_value
-    FROM mark
-             JOIN student ON mark.studentId = student.id
-    GROUP BY groupId
-),
-     students_above_avg AS (
-         SELECT mark.studentId, mark.value, avg_marks.avg_value
-         FROM mark
-                  JOIN student ON mark.studentId = student.id
-                  JOIN avg_marks ON student.groupId = avg_marks.groupId
-         WHERE mark.value > avg_marks.avg_value
-     )
-SELECT *
-FROM student
-WHERE id IN (SELECT studentId FROM students_above_avg);
+with avg_mark as (SELECT groupid, avg(value) AS avg_value FROM mark
+                  inner join student s on s.id = mark.studentid
+                  GROUP BY groupid)
+        select distinct s.id from student s
+        INNER JOIN mark m on s.id = m.studentid
+        INNER JOIN avg_mark am on am.groupid = s.groupid
+        where m.value > am.avg_value;
 
 --DDL:
 

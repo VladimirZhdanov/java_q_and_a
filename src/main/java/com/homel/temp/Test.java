@@ -5,14 +5,19 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
+        List<String> strings = List.of("1", "2", "3");
 
-        int[] nums = new int[] {2, 2, 1, 3, 3};
+        boolean isTheSame = true;
 
-        int ans=0; //since XOR with 0 returns same number
-        for(int i=0; i<nums.length; i++){
-            ans ^= nums[i];  // ans = (ans) XOR (array element at i)
-        }
-        System.out.println(ans);
+        strings.stream()
+                .filter(it -> !isTheSame || !it.equals("2"))
+                .forEach(System.out::println);
+
+        strings.stream()
+                .filter(it -> !(isTheSame && it.equals("2")))
+                .forEach(System.out::println);
+
+
 
     }
 }
