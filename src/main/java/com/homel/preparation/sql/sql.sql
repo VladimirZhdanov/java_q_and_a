@@ -86,7 +86,8 @@ where tablename like 'person_data';
 -- Размер таблиц в мб
 SELECT pg_size_pretty( pg_total_relation_size('person_data') );
 SELECT pg_size_pretty( pg_total_relation_size('person_data_pkey') );
-SELECT pg_size_pretty( pg_total_relation_size('person_data_fk_country') );
+SELECT pg_size_pretty( pg_total_relation_size('person_data_fk_country_hash') ) hash;
+SELECT pg_size_pretty( pg_total_relation_size('person_data_fk_country_btree') ) btree;
 SELECT pg_size_pretty( pg_total_relation_size('person_data_created_at') );
 
 -- 3.
@@ -100,12 +101,13 @@ ALTER TABLE person_data DROP COLUMN new_column;
 CREATE INDEX person_data_fk_country
     ON person_data(country_id);
 
-CREATE INDEX person_data_fk_country ON public.person_data USING btree (country_id);
-CREATE UNIQUE INDEX person_data_fk_country ON public.person_data USING btree (country_id);
-CREATE INDEX person_data_fk_country ON public.person_data USING hash (country_id);
-CREATE UNIQUE INDEX person_data_fk_country ON public.person_data USING hash (country_id);
+CREATE INDEX person_data_fk_country_btree ON public.person_data USING btree (country_id);
+CREATE UNIQUE INDEX person_data_fk_country_btree ON public.person_data USING btree (country_id);
+CREATE INDEX person_data_fk_country_hash ON public.person_data USING hash (country_id);
+CREATE UNIQUE INDEX person_data_fk_country_hash ON public.person_data USING hash (country_id);
 
-DROP INDEX person_data_fk_country;
+DROP INDEX person_data_fk_country_btree;
+DROP INDEX person_data_fk_country_hash;
 
 explain analyse SELECT * FROM person_data
                 WHERE country_id = 300;
