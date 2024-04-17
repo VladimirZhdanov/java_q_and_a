@@ -13,6 +13,9 @@ WHERE m.studentid IS NULL;
 
 -- 2. Найти всех студентов, у которых есть хотя бы одна оценка выше средней
 
+SELECT DISTINCT studentId FROM Mark m
+WHERE m.value > (SELECT avg(m.value) FROM mark m);
+
 SELECT DISTINCT studentId FROM Student s
 JOIN Mark m ON s.Id = m.studentId
 WHERE m.value > (SELECT avg(m.value) FROM mark m);
