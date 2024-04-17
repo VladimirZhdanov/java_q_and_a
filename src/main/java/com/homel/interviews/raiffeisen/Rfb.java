@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//Вывести топ age по name
 public class Rfb {
 
-    public List<Person> getTopAgeForName(List<Person> persons) {
+    public static List<Person> getTopAgeForName(List<Person> persons) {
         List<Person> res = new ArrayList<>();
         Map<String, Integer> map = new HashMap<>();
 
@@ -30,6 +31,15 @@ public class Rfb {
     }
 
     public static void main(String[] args) {
+        List<Person> topAgeForName = getTopAgeForName(List.of(
+                new Person("Mike", 3),
+                new Person("Mike", 13),
+                new Person("Vlad", 13),
+                new Person("Vlad", 53),
+                new Person("Din", 63)
+                ));
+
+        System.out.println(topAgeForName);
 
     }
 
@@ -41,6 +51,14 @@ public class Rfb {
         public Person(String name, int age) {
             this.name = name;
             this.age = age;
+        }
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "name='" + name + '\'' +
+                    ", age=" + age +
+                    '}';
         }
     }
 }
