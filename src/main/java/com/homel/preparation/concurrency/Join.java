@@ -1,7 +1,7 @@
 package com.homel.preparation.concurrency;
 
 public class Join {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Throwable {
 
         Thread t1 = new Runner1();
         Thread t2= new Runner2();
