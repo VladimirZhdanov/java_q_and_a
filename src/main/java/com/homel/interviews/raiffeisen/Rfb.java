@@ -40,9 +40,7 @@ public class Rfb {
                 ));
 
         System.out.println(topAgeForName);
-
     }
-
 
     public static class Person {
         public String name;
